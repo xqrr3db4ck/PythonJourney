@@ -23,9 +23,11 @@ dir12 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[12])
 fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
 print(dir12)
 print(fil2)
-root_dir = '/home/crxxp919/PycharmProjects'
+dest_dir = 'V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS'
+print(dest_dir + ' Will be the destiny folder')
+root_dir = 'O:'
 subdirs = [x[0] for x in os.walk(root_dir)]
-dest_dir = '/home/crxxp919/PycharmProjects/pythonProject'
+#print(subdirs)
 
 for subdir in subdirs:
     for val in dir12.values:
@@ -33,4 +35,9 @@ for subdir in subdirs:
             for filename in os.listdir(subdir):
                 for fileval in fil2.values:
                     if str(fileval[0]) in filename and filename.endswith('.pdf'):
-                        shutil.copy(os.path.join(subdir, filename), dest_dir)
+                        source_file = os.path.join(subdir, filename)
+                        dest_file = os.path.join(dest_dir, filename)
+                        if not os.path.exists(dest_file):
+                            shutil.copy(source_file, dest_file)
+                        else:
+                            print(f"{filename} already exists in {dest_dir}, skipping...")
