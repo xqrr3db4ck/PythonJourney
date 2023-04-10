@@ -1,3 +1,7 @@
+import pandas as pd
+import os
+import shutil
+
 df = pd.read_excel('pedidos.xlsx')
 df.drop(df.columns[[1, 2, 3, 4, 8, 17, 18, 19]], axis=1, inplace=True)
 df.iloc[:, 0] = df.iloc[:, 0].str[5:]
