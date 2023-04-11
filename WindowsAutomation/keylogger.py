@@ -78,4 +78,17 @@ remove_files_with_words(directory, words)
 
 directory = "/home/crxxp919/PycharmProjects/pythonProject"
 remove_duplicate_files(directory)
+
+os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/CONTENIDOS')
+os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/MONTAJES')
+os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/TAPAS')
+os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/TAPAS/BRILLANTE')
+os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/TAPAS/MATE')
+os.system('gci -filter *.pdf -include *tapa* |mv -destination .\\TAPAS')
+os.system('gci -filter *.pdf -include *contenidos* |cp -destination .\\CONTENIDOS')
+os.system('gci -filter *.pdf -include *contenidos* |mv -destination .\\MONTAJES')
+
+
+
+
                         
