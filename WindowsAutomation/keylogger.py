@@ -90,8 +90,3 @@ os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/TAPAS/MATE')
 os.system('gci -filter *.pdf -include *tapa* |mv -destination .\\TAPAS')
 os.system('gci -filter *.pdf -include *contenidos* |cp -destination .\\CONTENIDOS')
 os.system('gci -filter *.pdf -include *contenidos* |mv -destination .\\MONTAJES')
-
-
-
-
-                        
