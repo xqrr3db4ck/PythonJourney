@@ -23,11 +23,10 @@ dir12 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[12])
 fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
 print(dir12)
 print(fil2)
-dest_dir = 'V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS'
+dest_dir = input("Enter path: ")
 print(dest_dir + ' Will be the destiny folder')
 root_dir = 'O:'
 subdirs = [x[0] for x in os.walk(root_dir)]
-#print(subdirs)
 
 for subdir in subdirs:
     for val in dir12.values:
@@ -42,7 +41,7 @@ for subdir in subdirs:
                         else:
                             print(f"{filename} already exists in {dest_dir}, skipping...")
 
-os.chdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS')
+os.chdir(dest_dir)
 
 def remove_files_with_words(directory, words):
     files = os.listdir(directory)
@@ -72,11 +71,11 @@ def remove_duplicate_files(directory):
                 for file in files[:-1]:
                     os.remove(os.path.join(directory, file))
 
-directory = "/home/crxxp919/PycharmProjects/pythonProject"
+directory = dest_dir
 words = ["MUESTRA", "IMAGEN", "THECAKEISALIE"]
 remove_files_with_words(directory, words)
 
-directory = "/home/crxxp919/PycharmProjects/pythonProject"
+directory = dest_dir
 remove_duplicate_files(directory)
 
 fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
@@ -92,11 +91,12 @@ for name in names:
     if not found:
         print(f'{name} not found in directory')
 
-os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/CONTENIDOS')
-os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/MONTAJES')
-os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/TAPAS')
-os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/TAPAS/BRILLANTE')
-os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/TAPAS/MATE')
+dest_dir = input('Enter path again: ')
+os.makedirs(os.path.join(dest_dir, "CONTENIDO"))
+os.makedirs(os.path.join(dest_dir, "MONTAJES"))
+os.makedirs(os.path.join(dest_dir, "TAPAS"))
+os.makedirs(os.path.join(dest_dir, "TAPAS", "BRILLANTE"))
+os.makedirs(os.path.join(dest_dir, "TAPAS", "MATE"))
 os.system('gci -filter *.pdf -include *tapa* |mv -destination .\\TAPAS')
 os.system('gci -filter *.pdf -include *contenidos* |cp -destination .\\CONTENIDOS')
 os.system('gci -filter *.pdf -include *contenidos* |mv -destination .\\MONTAJES')
