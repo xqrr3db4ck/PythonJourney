@@ -1,14 +1,40 @@
-import os
 import pandas as pd
+import os
+from openpyxl import load_workbook
+from openpyxl.styles import PatternFill
 
-df = pd.read_excel('PedidosBMG1a1.xlsx', names=['COD_PUB'])
-print(df)
+fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
+names = fil2.values.flatten().tolist()
+dir_path = 'D:/pythonProject/Lab'
+files = os.listdir(dir_path)
+wb = load_workbook('PedidosBMG1a1.xlsx')
+ws = wb.active
+red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
+for i, name in enumerate(names):
+    found = False
+    for file in files:
+        if name in file and file.startswith(name.split('_')[0]):
+            found = True
+            break
+    if not found:
+        print(f'{name} no se encontró en el directorio')
+        ws.cell(row=i+2, column=3).fill = red_fill
+wb.save('PedidosBMG1a1.xlsx')
 
-files = os.listdir('path/to/directory')
-for file_name in files:
-    if any(df['column_name'].str.startswith(file_name)):
-        pass
-    else:
-        print(f"Missed name: {file_name}")
-        with open('missed_names.txt', 'a') as f:
-            f.write(file_name + '\n')
+'''
+import pandas as pd
+import os
+
+fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
+names = fil2.values.flatten().tolist()
+dir_path = 'D:/pythonProject/Lab'
+files = os.listdir(dir_path)
+for name in names:
+    found = False
+    for file in files:
+        if name in file and file.startswith(name.split('_')[0]):
+            found = True
+            break
+    if not found:
+        print(f'{name} not found in directory')
+'''
