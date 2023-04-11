@@ -79,6 +79,9 @@ remove_files_with_words(directory, words)
 directory = "/home/crxxp919/PycharmProjects/pythonProject"
 remove_duplicate_files(directory)
 
+### check if the files match with the variable fil2, and make a report if the names doesnt match, then, send an email to report the files, with the code
+### of the file and the number of the column 0 of the excel converted.
+
 os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/CONTENIDOS')
 os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/MONTAJES')
 os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/TAPAS')
