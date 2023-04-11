@@ -41,9 +41,9 @@ for subdir in subdirs:
                             shutil.copy(source_file, dest_file)
                         else:
                             print(f"{filename} already exists in {dest_dir}, skipping...")
-                        
-os.chdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS')                        
-         
+
+os.chdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS')
+
 def remove_files_with_words(directory, words):
     files = os.listdir(directory)
     for file in files:
@@ -79,8 +79,18 @@ remove_files_with_words(directory, words)
 directory = "/home/crxxp919/PycharmProjects/pythonProject"
 remove_duplicate_files(directory)
 
-### check if the files match with the variable fil2, and make a report if the names doesnt match, then, send an email to report the files, with the code
-### of the file and the number of the column 0 of the excel converted.
+fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
+names = fil2.values.flatten().tolist()
+dir_path = 'D:/pythonProject/Lab'
+files = os.listdir(dir_path)
+for name in names:
+    found = False
+    for file in files:
+        if name in file and file.startswith(name.split('_')[0]):
+            found = True
+            break
+    if not found:
+        print(f'{name} not found in directory')
 
 os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/CONTENIDOS')
 os.mkdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS/MONTAJES')
