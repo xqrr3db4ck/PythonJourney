@@ -92,7 +92,7 @@ for name in names:
         print(f'{name} not found in directory')
 
 dest_dir = input('Enter path again: ')
-os.makedirs(os.path.join(dest_dir, "CONTENIDO"))
+os.makedirs(os.path.join(dest_dir, "CONTENIDOS"))
 os.makedirs(os.path.join(dest_dir, "MONTAJES"))
 os.makedirs(os.path.join(dest_dir, "TAPAS"))
 os.makedirs(os.path.join(dest_dir, "TAPAS", "BRILLANTE"))
