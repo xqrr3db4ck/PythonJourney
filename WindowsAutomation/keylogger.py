@@ -41,6 +41,8 @@ for subdir in subdirs:
                             shutil.copy(source_file, dest_file)
                         else:
                             print(f"{filename} already exists in {dest_dir}, skipping...")
+                        
+os.chdir('V:/04-ABRIL/BUSCALIBRE/330 PEDIDOS')                        
          
 def remove_files_with_words(directory, words):
     files = os.listdir(directory)
