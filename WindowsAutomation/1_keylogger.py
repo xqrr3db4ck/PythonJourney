@@ -45,6 +45,8 @@ for subdir in subdirs:
 
 os.chdir(dest_dir)
 
+###
+
 def remove_files_with_words(directory, words):
     files = os.listdir(directory)
     for file in files:
@@ -97,7 +99,6 @@ for i, name in enumerate(names):
         print(f'{name} not found in directory')
         ws.cell(row=i+2, column=3).fill = red_fill
 wb.save('PedidosBMG1a1.xlsx')
-
 
 os.makedirs(os.path.join(dest_dir, "CONTENIDOS"))
 os.makedirs(os.path.join(dest_dir, "MONTAJES"))
