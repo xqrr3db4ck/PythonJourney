@@ -1,6 +1,8 @@
 import pandas as pd
 import os
 import shutil
+from openpyxl import load_workbook
+from openpyxl.styles import PatternFill
 
 df = pd.read_excel('pedidos.xlsx')
 df.drop(df.columns[[1, 2, 3, 4, 8, 17, 18, 19]], axis=1, inplace=True)
@@ -80,9 +82,12 @@ remove_duplicate_files(directory)
 
 fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
 names = fil2.values.flatten().tolist()
-dir_path = 'D:/pythonProject/Lab'
+dir_path = dest_dir
 files = os.listdir(dir_path)
-for name in names:
+wb = load_workbook('PedidosBMG1a1.xlsx')
+ws = wb.active
+red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
+for i, name in enumerate(names):
     found = False
     for file in files:
         if name in file and file.startswith(name.split('_')[0]):
@@ -90,13 +95,22 @@ for name in names:
             break
     if not found:
         print(f'{name} not found in directory')
+        ws.cell(row=i+2, column=3).fill = red_fill
+wb.save('PedidosBMG1a1.xlsx')
 
-dest_dir = input('Enter path again: ')
+
 os.makedirs(os.path.join(dest_dir, "CONTENIDOS"))
 os.makedirs(os.path.join(dest_dir, "MONTAJES"))
 os.makedirs(os.path.join(dest_dir, "TAPAS"))
 os.makedirs(os.path.join(dest_dir, "TAPAS", "BRILLANTE"))
 os.makedirs(os.path.join(dest_dir, "TAPAS", "MATE"))
-os.system('gci -filter *.pdf -include *tapa* |mv -destination .\\TAPAS')
-os.system('gci -filter *.pdf -include *contenidos* |cp -destination .\\CONTENIDOS')
-os.system('gci -filter *.pdf -include *contenidos* |mv -destination .\\MONTAJES')
+source_dir = dest_dir
+contents_dir = 'CONTENIDOS'
+impositions_dir = 'MONTAJES'
+covers_dir = 'TAPAS'
+for filename in os.listdir(source_dir):
+    if 'tapa' in filename.lower():
+        shutil.move(os.path.join(source_dir, filename), covers_dir)
+    elif 'contenido' in filename.lower():
+        shutil.copy(os.path.join(source_dir, filename), impositions_dir)
+        shutil.move(os.path.join(source_dir, filename), contents_dir)
