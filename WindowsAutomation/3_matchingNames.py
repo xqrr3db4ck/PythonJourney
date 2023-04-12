@@ -17,7 +17,7 @@ for i, name in enumerate(names):
             found = True
             break
     if not found:
-        print(f'{name} no se encontró en el directorio')
+        print(f'{name} not found in directory')
         ws.cell(row=i+2, column=3).fill = red_fill
 wb.save('PedidosBMG1a1.xlsx')
 
