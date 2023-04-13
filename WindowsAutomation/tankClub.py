@@ -23,7 +23,6 @@ if not os.path.exists("_REPOSICIONES_"):
 else:
     print("The directory '_REPOSICIONES_' already exists.")
 newday = input("Ready Lets Go: ")
-os.mkdir(newday)
 os.makedirs(os.path.join(newday, "CONTENIDOS"))
 os.makedirs(os.path.join(newday, "CONTENIDOS", "TAPAS"))
 os.makedirs(os.path.join(newday, "CONTENIDOS", "TAPAS_BLANDAS"))
