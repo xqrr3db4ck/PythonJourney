@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
+#from openpyxl.utils import rows_from_range
 
 df = pd.read_excel('pedidos.xlsx')
 df.drop(df.columns[[1, 2, 3, 4, 8, 17, 18, 19]], axis=1, inplace=True)
