@@ -15,16 +15,17 @@ df['EDIT'] = df['EDIT'].str.slice(stop=-3)
 df.replace({'BNAHU080': 'HOL.', 'BNOBR080': 'B70', 'COOBR090': 'B90', 'BNOBR090': 'B90', 'BNILM115': 'E115',
             'COAHU080': 'HOL.', 'TAILU270': 'ESM300', 'ENCBIN': 'RÚST.', 'ENCACA': 'CABA.', 'LAMMAT': 'MAT',
             'LAMBTE': 'BTE'}, regex=True, inplace=True)
-df['EDIT'] = df.pop('EDIT')
+#df['EDIT'] = df.pop('EDIT')
 df.insert(0, 'NO.', range(1, len(df) + 1))
 df_ordenado = df.copy()
 df_ordenado.iloc[:, 1:] = df_ordenado.iloc[:, 1:].sort_values(by=['EDIT'], ascending=[True])
 df_ordenado.to_excel('PedidosBMG1a1.xlsx', index=False)
-dir12 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[12])
-fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
-names = fil2.values.flatten().tolist()
-dir_path = "D:/temporal"
-files = os.listdir(dir_path)
+#dir12 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[12])
+#fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
+#names = fil2.values.flatten().tolist()
+#dir_path = "D:/temporal"
+#files = os.listdir(dir_path)
+df['EDIT'] = df.pop('EDIT')
 wb = load_workbook('PedidosBMG1a1.xlsx')
 ws = wb.active
 red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
