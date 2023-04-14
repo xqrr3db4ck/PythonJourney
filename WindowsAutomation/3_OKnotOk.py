@@ -27,6 +27,9 @@ df.insert(0, 'NO.', range(1, len(df) + 1))
 #dir_path = "D:/temporal"
 #files = os.listdir(dir_path)
 df['EDIT'] = df.pop('EDIT')
+#column = df[COD_PUB]
+df[PWSH] = column
+df.to_excel("nombre_del_archivo.xlsx", index=False)
 wb = load_workbook('PedidosBMG1a1.xlsx')
 ws = wb.active
 red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
