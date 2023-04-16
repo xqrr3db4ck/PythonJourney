@@ -1,10 +1,8 @@
 import pandas as pd
-import os
-from openpyxl import load_workbook
+import openpyxl
 from openpyxl.styles import PatternFill
-#from openpyxl.utils import rows_from_range
 
-df = pd.read_excel('pedidos.xlsx')
+df = pd.read_excel('IgetBored.xlsx')
 df.drop(df.columns[[1, 2, 3, 4, 8, 17, 18, 19]], axis=1, inplace=True)
 df.iloc[:, 0] = df.iloc[:, 0].str[5:]
 df.iloc[:, 1] = df.iloc[:, 1].str[5:]
@@ -16,31 +14,32 @@ df['EDIT'] = df['EDIT'].str.slice(stop=-3)
 df.replace({'BNAHU080': 'HOL.', 'BNOBR080': 'B70', 'COOBR090': 'B90', 'BNOBR090': 'B90', 'BNILM115': 'E115',
             'COAHU080': 'HOL.', 'TAILU270': 'ESM300', 'ENCBIN': 'RÚST.', 'ENCACA': 'CABA.', 'LAMMAT': 'MAT',
             'LAMBTE': 'BTE'}, regex=True, inplace=True)
-#df['EDIT'] = df.pop('EDIT')
-df.insert(0, 'NO.', range(1, len(df) + 1))
-#df_ordenado = df.copy()
-#df_ordenado.iloc[:, 1:] = df_ordenado.iloc[:, 1:].sort_values(by=['EDIT'], ascending=[True])
-#df_ordenado.to_excel('PedidosBMG1a1.xlsx', index=False)
-#dir12 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[12])
-#fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
-#names = fil2.values.flatten().tolist()
-#dir_path = "D:/temporal"
-#files = os.listdir(dir_path)
+# df.insert(0, 'NO.', range(1, len(df) + 1))
 df['EDIT'] = df.pop('EDIT')
-#column = df[COD_PUB]
-df[PWSH] = column
-df.to_excel("nombre_del_archivo.xlsx", index=False)
-wb = load_workbook('PedidosBMG1a1.xlsx')
+df['PWSH'] = df['COD_PUB']
+df['PWSH'] = df['PWSH'].str.lstrip('0') + '*,'
+new_file_name = "_1a1BMG_.xlsx"
+df.to_excel(new_file_name)
+print(f"File saved as {new_file_name}")
+wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
 ws = wb.active
-red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
-for i, name in enumerate(names):
-    found = False
-    for file in files:
-        if name in file and file.startswith(name.split('_')[0]):
-            found = True
-            break
-    if not found:
-        print(f'{name} not found in directory')
-        ws.cell(row=i+2, column=3).fill = red_fill
-wb.save('PedidosBMG1a1.xlsx')
-
+fill = PatternFill(start_color='FFC7CE', end_color='FFC7CE', fill_type='solid')
+for row in ws.iter_rows():
+    for cell in row:
+        if 'MAT' in str(cell.value):
+            cell.fill = fill
+wb.save('_1a1BMG_.xlsx')
+wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
+ws = wb.active
+for col in ws.columns:
+    max_length = 0
+    column = col[0].column_letter
+    for cell in col:
+        try:
+            if len(str(cell.value)) > max_length:
+                max_length = len(str(cell.value))
+        except:
+            pass
+    adjusted_width = (max_length + 2) * 1.1
+    ws.column_dimensions[column].width = adjusted_width
+wb.save('_1a1BMG_.xlsx')
