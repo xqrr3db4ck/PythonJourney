@@ -1,10 +1,8 @@
 import pandas as pd
-import os
-import shutil
-from openpyxl import load_workbook
+import openpyxl
 from openpyxl.styles import PatternFill
 
-df = pd.read_excel('pedidos.xlsx')
+df = pd.read_excel('IgetBored.xlsx')
 df.drop(df.columns[[1, 2, 3, 4, 8, 17, 18, 19]], axis=1, inplace=True)
 df.iloc[:, 0] = df.iloc[:, 0].str[5:]
 df.iloc[:, 1] = df.iloc[:, 1].str[5:]
@@ -16,20 +14,47 @@ df['EDIT'] = df['EDIT'].str.slice(stop=-3)
 df.replace({'BNAHU080': 'HOL.', 'BNOBR080': 'B70', 'COOBR090': 'B90', 'BNOBR090': 'B90', 'BNILM115': 'E115',
             'COAHU080': 'HOL.', 'TAILU270': 'ESM300', 'ENCBIN': 'RÚST.', 'ENCACA': 'CABA.', 'LAMMAT': 'MAT',
             'LAMBTE': 'BTE'}, regex=True, inplace=True)
+# df.insert(0, 'NO.', range(1, len(df) + 1))
 df['EDIT'] = df.pop('EDIT')
-df.insert(0, 'NO.', range(1, len(df) + 1))
-df_ordenado = df.copy()
-df_ordenado.iloc[:, 1:] = df_ordenado.iloc[:, 1:].sort_values(by=['EDIT'], ascending=[True])
-df_ordenado.to_excel('PedidosBMG1a1.xlsx', index=False)
-dir12 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[12])
-fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
+df['PWSH'] = df['COD_PUB']
+df['PWSH'] = df['PWSH'].str.lstrip('0') + '*,'
+new_file_name = "_1a1BMG_.xlsx"
+df.to_excel(new_file_name)
+print(f"File saved as {new_file_name}")
+wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
+ws = wb.active
+fill = PatternFill(start_color='FFC7CE', end_color='FFC7CE', fill_type='solid')
+for row in ws.iter_rows():
+    for cell in row:
+        if 'MAT' in str(cell.value):
+            cell.fill = fill
+wb.save('_1a1BMG_.xlsx')
+wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
+ws = wb.active
+for col in ws.columns:
+    max_length = 0
+    column = col[0].column_letter
+    for cell in col:
+        try:
+            if len(str(cell.value)) > max_length:
+                max_length = len(str(cell.value))
+        except:
+            pass
+    adjusted_width = (max_length + 2) * 1.1
+    ws.column_dimensions[column].width = adjusted_width
+wb.save('_1a1BMG_.xlsx')
+
+# Second_Part
+dir12 = pd.read_excel('_1a1BMG_.xlsx', usecols=[12])
+fil2 = pd.read_excel('_1a1BMG_.xlsx', usecols=[2])
 print(dir12)
 print(fil2)
+# Second Part
+
 dest_dir = input("Enter path: ")
 print(dest_dir + ' Will be the destiny folder')
 root_dir = 'O:'
 subdirs = [x[0] for x in os.walk(root_dir)]
-
 for subdir in subdirs:
     for val in dir12.values:
         if str(val[0]) in subdir:
@@ -42,17 +67,12 @@ for subdir in subdirs:
                             shutil.copy(source_file, dest_file)
                         else:
                             print(f"{filename} already exists in {dest_dir}, skipping...")
-
 os.chdir(dest_dir)
-
-###
-
 def remove_files_with_words(directory, words):
     files = os.listdir(directory)
     for file in files:
         if any(word in file for word in words):
             os.remove(os.path.join(directory, file))
-
 def remove_duplicate_files(directory):
     files = os.listdir(directory)
     tapa_files = {}
@@ -74,14 +94,11 @@ def remove_duplicate_files(directory):
                 files.sort()
                 for file in files[:-1]:
                     os.remove(os.path.join(directory, file))
-
 directory = dest_dir
 words = ["MUESTRA", "IMAGEN", "THECAKEISALIE"]
 remove_files_with_words(directory, words)
-
 directory = dest_dir
 remove_duplicate_files(directory)
-
 fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
 names = fil2.values.flatten().tolist()
 dir_path = dest_dir
