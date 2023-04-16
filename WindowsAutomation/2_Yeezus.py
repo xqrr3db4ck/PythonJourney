@@ -5,7 +5,6 @@ def remove_files_with_words(directory, words):
     for file in files:
         if any(word in file for word in words):
             os.remove(os.path.join(directory, file))
-
 def remove_duplicate_files(directory):
     files = os.listdir(directory)
     tapa_files = {}
@@ -27,10 +26,26 @@ def remove_duplicate_files(directory):
                 files.sort()
                 for file in files[:-1]:
                     os.remove(os.path.join(directory, file))
-
-directory = "/home/crxxp919/PycharmProjects/pythonProject"
+directory = dest_dir
 words = ["MUESTRA", "IMAGEN", "THECAKEISALIE"]
 remove_files_with_words(directory, words)
-
-directory = "/home/crxxp919/PycharmProjects/pythonProject"
+directory = dest_dir
 remove_duplicate_files(directory)
+
+fil2 = pd.read_excel('_1a1BMG_.xlsx', usecols=[2])
+names = fil2.values.flatten().tolist()
+dir_path = dest_dir
+files = os.listdir(dir_path)
+wb = load_workbook('_1a1BMG_.xlsx')
+ws = wb.active
+red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
+for i, name in enumerate(names):
+    found = False
+    for file in files:
+        if name in file and file.startswith(name.split('_')[0]):
+            found = True
+            break
+    if not found:
+        print(f'{name} not found in directory')
+        ws.cell(row=i+2, column=3).fill = red_fill
+wb.save('_1a1BMG_.xlsx')
