@@ -49,7 +49,6 @@ dir12 = pd.read_excel('_1a1BMG_.xlsx', usecols=[12])
 fil2 = pd.read_excel('_1a1BMG_.xlsx', usecols=[2])
 print(dir12)
 print(fil2)
-# Second Part
 
 dest_dir = input("Enter path: ")
 print(dest_dir + ' Will be the destiny folder')
@@ -99,11 +98,12 @@ words = ["MUESTRA", "IMAGEN", "THECAKEISALIE"]
 remove_files_with_words(directory, words)
 directory = dest_dir
 remove_duplicate_files(directory)
-fil2 = pd.read_excel('PedidosBMG1a1.xlsx', usecols=[2])
+
+fil2 = pd.read_excel('_1a1BMG_.xlsx', usecols=[2])
 names = fil2.values.flatten().tolist()
 dir_path = dest_dir
 files = os.listdir(dir_path)
-wb = load_workbook('PedidosBMG1a1.xlsx')
+wb = load_workbook('_1a1BMG_.xlsx')
 ws = wb.active
 red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
 for i, name in enumerate(names):
@@ -115,7 +115,7 @@ for i, name in enumerate(names):
     if not found:
         print(f'{name} not found in directory')
         ws.cell(row=i+2, column=3).fill = red_fill
-wb.save('PedidosBMG1a1.xlsx')
+wb.save('_1a1BMG_.xlsx')
 
 os.makedirs(os.path.join(dest_dir, "CONTENIDOS"))
 os.makedirs(os.path.join(dest_dir, "MONTAJES"))
