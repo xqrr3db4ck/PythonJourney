@@ -42,6 +42,8 @@ for row in ws.iter_rows():
 for row in ws.iter_rows(min_row=2):
     if row[3].value != None and isinstance(row[3].value, (int, float)) and float(row[3].value) > 1:
         row[3].fill = PatternFill(start_color='F7DC6F', end_color='F7DC6F', fill_type='solid')
+for cell in ws[1]:
+    cell.fill = PatternFill(start_color='AEB6BF', end_color='AEB6BF', fill_type='solid')
 wb.save('_1a1BMG_.xlsx')
 wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
 ws = wb.active
