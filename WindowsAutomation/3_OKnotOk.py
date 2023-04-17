@@ -14,21 +14,29 @@ df['EDIT'] = df['EDIT'].str.slice(stop=-3)
 df.replace({'BNAHU080': 'HOL.', 'BNOBR080': 'B70', 'COOBR090': 'B90', 'BNOBR090': 'B90', 'BNILM115': 'E115',
             'COAHU080': 'HOL.', 'TAILU270': 'ESM300', 'ENCBIN': 'RÚST.', 'ENCACA': 'CABA.', 'LAMMAT': 'MAT',
             'LAMBTE': 'BTE'}, regex=True, inplace=True)
-# df.insert(0, 'NO.', range(1, len(df) + 1))
 df['EDIT'] = df.pop('EDIT')
 df['PWSH'] = df['COD_PUB']
 df['PWSH'] = df['PWSH'].str.lstrip('0') + '*,'
 new_file_name = "_1a1BMG_.xlsx"
-df.to_excel(new_file_name)
+df.to_excel(new_file_name, index=False)
 print(f"File saved as {new_file_name}")
 wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
 ws = wb.active
-fill = PatternFill(start_color='FFC7CE', end_color='FFC7CE', fill_type='solid')
+fill = PatternFill(start_color='5DADE2', end_color='5DADE2', fill_type='solid')
 for row in ws.iter_rows():
     for cell in row:
         if 'MAT' in str(cell.value):
             cell.fill = fill
+for row in ws.iter_rows():
+    for cell in row:
+        if 'E115' in str(cell.value):
+            cell.fill = PatternFill(start_color='A569BD', end_color='A569BD', fill_type='solid')
+for row in ws.iter_rows():
+    for cell in row:
+        if 'CL' in str(cell.value):
+            cell.fill = PatternFill(start_color='EC7063', end_color='EC7063', fill_type='solid')
 wb.save('_1a1BMG_.xlsx')
+
 wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
 ws = wb.active
 for col in ws.columns:
