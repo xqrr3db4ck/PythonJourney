@@ -35,8 +35,11 @@ for row in ws.iter_rows():
     for cell in row:
         if 'CL' in str(cell.value):
             cell.fill = PatternFill(start_color='EC7063', end_color='EC7063', fill_type='solid')
+for row in ws.iter_rows():
+    for cell in row:
+        if cell.value == None:
+            cell.fill = PatternFill(start_color='F7DC6F', end_color='F7DC6F', fill_type='solid')
 wb.save('_1a1BMG_.xlsx')
-
 wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
 ws = wb.active
 for col in ws.columns:
