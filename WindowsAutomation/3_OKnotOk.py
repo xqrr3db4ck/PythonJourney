@@ -59,3 +59,10 @@ for col in ws.columns:
     adjusted_width = (max_length + 2) * 1.1
     ws.column_dimensions[column].width = adjusted_width
 wb.save('_1a1BMG_.xlsx')
+
+'''total = 0
+for row in ws.iter_rows():
+    if row[3].value != None and isinstance(row[3].value, (int, float)):
+        total += row[3].value
+ws.cell(row=ws.max_row+1, column=4).value = total
+'''
