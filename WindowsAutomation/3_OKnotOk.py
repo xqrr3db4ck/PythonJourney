@@ -59,10 +59,15 @@ for col in ws.columns:
     adjusted_width = (max_length + 2) * 1.1
     ws.column_dimensions[column].width = adjusted_width
 wb.save('_1a1BMG_.xlsx')
-
-'''total = 0
-for row in ws.iter_rows():
-    if row[3].value != None and isinstance(row[3].value, (int, float)):
-        total += row[3].value
-ws.cell(row=ws.max_row+1, column=4).value = total
-'''
+def div(value, divider):
+    if value % divider == 0:
+        return value / divider
+    else:
+        return (valor * 2) / divisor
+df = pd.read_excel('_1a1BMG_.xlsx')
+df['ANCHOALTO'] = pd.to_numeric(df['ANCHOALTO'], errors='coerce')
+df['CANT'] = df['CANT'].astype(int)
+df['PAG'] = df['PAG'].astype(int)
+df['suma'] = df['CANT'] + df['PAG']
+df['result'] = df.apply(lambda row: div(row['suma'], 16) if row['ANCHOALTO'] <= 170240 else div(row['CANT'] * row['PAG'], 32), axis=1)
+print(df[['CANT', 'result']])
