@@ -74,7 +74,7 @@ print(df[['CANT', 'result']])
 ###
 fil2 = pd.read_excel('IgetBored.xlsx', usecols=[2])
 names = fil2.values.flatten().tolist()
-dir_path = dest_dir
+dir_path = .
 files = os.listdir(dir_path)
 wb = load_workbook('_1a1BMG_.xlsx')
 ws = wb.active
