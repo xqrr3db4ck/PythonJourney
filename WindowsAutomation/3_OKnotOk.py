@@ -71,3 +71,22 @@ df['PAG'] = df['PAG'].astype(int)
 df['suma'] = df['CANT'] + df['PAG']
 df['result'] = df.apply(lambda row: dividir(row['suma'], 16) if row['ANCHOALTO'] <= 170240 else dividir(row['CANT'] * row['PAG'], 32), axis=1)
 print(df[['CANT', 'result']])
+###
+fil2 = pd.read_excel('_1a1BMG_.xlsx', usecols=[2])
+names = fil2.values.flatten().tolist()
+dir_path = dest_dir
+files = os.listdir(dir_path)
+wb = load_workbook('_1a1BMG_.xlsx')
+ws = wb.active
+red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
+for i, name in enumerate(names):
+    found = False
+    for file in files:
+        if name in file and file.startswith(name.split('_')[0]):
+            found = True
+            break
+    if not found:
+        print(f'{name} not found in directory')
+        ws.cell(row=i+2, column=3).fill = red_fill
+wb.save('_1a1BMG_.xlsx')
+
