@@ -72,9 +72,9 @@ df['suma'] = df['CANT'] + df['PAG']
 df['result'] = df.apply(lambda row: dividir(row['suma'], 16) if row['ANCHOALTO'] <= 170240 else dividir(row['CANT'] * row['PAG'], 32), axis=1)
 print(df[['CANT', 'result']])
 ###
-fil2 = pd.read_excel('IgetBored.xlsx', usecols=[2])
-names = fil2.values.flatten().tolist()
-dir_path = .
+fil2 = pd.read_excel('_1a1BMG_.xlsx', usecols=[1])
+names = fil1.values.flatten().tolist()
+dir_path = "./"
 files = os.listdir(dir_path)
 wb = load_workbook('_1a1BMG_.xlsx')
 ws = wb.active
@@ -87,6 +87,6 @@ for i, name in enumerate(names):
             break
     if not found:
         print(f'{name} not found in directory')
-        ws.cell(row=i+2, column=3).fill = red_fill
-wb.save('IgetBored.xlsx')
+        ws.cell(row=i+2, column=2).fill = red_fill
+wb.save('_1a1BMG_.xlsx')
 
