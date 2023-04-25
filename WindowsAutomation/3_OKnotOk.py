@@ -1,6 +1,7 @@
 import pandas as pd
 import openpyxl
 from openpyxl.styles import PatternFill
+import os
 
 df = pd.read_excel('IgetBored.xlsx')
 df.drop(df.columns[[1, 2, 3, 4, 8, 17, 18, 19]], axis=1, inplace=True)
@@ -72,7 +73,7 @@ df['suma'] = df['CANT'] + df['PAG']
 df['result'] = df.apply(lambda row: dividir(row['suma'], 16) if row['ANCHOALTO'] <= 170240 else dividir(row['CANT'] * row['PAG'], 32), axis=1)
 print(df[['CANT', 'result']])
 ###
-fil2 = pd.read_excel('_1a1BMG_.xlsx', usecols=[1])
+fil1 = pd.read_excel('_1a1BMG_.xlsx', usecols=[1])
 names = fil1.values.flatten().tolist()
 dir_path = "./"
 files = os.listdir(dir_path)
