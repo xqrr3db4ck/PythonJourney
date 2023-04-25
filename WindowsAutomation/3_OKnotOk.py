@@ -80,14 +80,14 @@ for i, name in enumerate(names):
 wb.save('_1a1BMG_.xlsx')
 ###
 ###
-df['columna_4'] = pd.to_numeric(df['columna_4'], errors='coerce')
-df['columna_5'] = pd.to_numeric(df['columna_5'], errors='coerce')
-df['columna_6'] = df['columna_6'].str.replace('x', '')
-df['columna_6'] = pd.to_numeric(df['columna_6'], errors='coerce')
+df = pd.read_excel('_1a1BMG_.xlsx')
+df['CANT'] = pd.to_numeric(df['CANT'], errors='coerce')
+df['PAG'] = pd.to_numeric(df['PAG'], errors='coerce')
+df['ANCHOALTO'] = df['ANCHOALTO'].str.replace('x', '')
+df['ANCHOALTO'] = pd.to_numeric(df['ANCHOALTO'], errors='coerce')
 def operacion(row):
-    if row['columna_6'] <= 170240:
-        return row['columna_4'] * row['columna_5'] / 16
+    if row['ANCHOALTO'] <= 170240:
+        return row['CANT'] * row['PAG'] / 16
     else:
-        return row['columna_4'] * row['columna_5'] / 32
-
+        return row['CANT'] * row['PAG'] / 32
 df['resultado'] = df.apply(operacion, axis=1)
