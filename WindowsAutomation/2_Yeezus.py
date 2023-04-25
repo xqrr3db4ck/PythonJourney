@@ -1,3 +1,7 @@
+import pandas as pd
+import openpyxl
+from openpyxl.styles import PatternFill
+from openpyxl import load_workbook
 import os
 
 def remove_files_with_words(directory, words):
@@ -32,11 +36,11 @@ remove_files_with_words(directory, words)
 directory = dest_dir
 remove_duplicate_files(directory)
 
-fil2 = pd.read_excel('_1a1BMG_.xlsx', usecols=[2])
+fil2 = pd.read_excel('_1a1BMG_.xlsx', usecols=[1])
 names = fil2.values.flatten().tolist()
 dir_path = dest_dir
 files = os.listdir(dir_path)
-wb = load_workbook('_1a1BMG_.xlsx')
+wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
 ws = wb.active
 red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
 for i, name in enumerate(names):
@@ -47,5 +51,5 @@ for i, name in enumerate(names):
             break
     if not found:
         print(f'{name} not found in directory')
-        ws.cell(row=i+2, column=3).fill = red_fill
+        ws.cell(row=i+2, column=2).fill = red_fill
 wb.save('_1a1BMG_.xlsx')
