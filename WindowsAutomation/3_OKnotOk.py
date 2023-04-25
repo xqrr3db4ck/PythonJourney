@@ -80,14 +80,3 @@ for i, name in enumerate(names):
 wb.save('_1a1BMG_.xlsx')
 ###
 ###
-df = pd.read_excel("_1a1BMG_.xlsx")
-wb = load_workbook(filename='_1a1BMG_.xlsx')
-ws = wb.active
-ws.cell(row=ws.max_row+2, column=ws.max_column+3).value = "PAPELES"
-ws.cell(row=ws.max_row+2, column=ws.max_column+4).value = "CANTIDAD"
-ws.cell(row=ws.max_row+2, column=ws.max_column+5).value = "PLIEGO"
-blueFill = PatternFill(start_color='0000FF', end_color='0000FF', fill_type='solid')
-ws.cell(row=ws.max_row+2, column=ws.max_column+3).fill = blueFill
-ws.cell(row=ws.max_row+2, column=ws.max_column+4).fill = blueFill
-ws.cell(row=ws.max_row+2, column=ws.max_column+5).fill = blueFill
-wb.save('_1a1BMG_.xlsx')
