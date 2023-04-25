@@ -82,7 +82,7 @@ for subdir in subdirs:
                             shutil.copy(source_file, dest_file)
                         else:
                             print(f"{filename} already exists in {dest_dir}, skipping...")
-###                        
+                        
 os.chdir(dest_dir)
 def remove_files_with_words(directory, words):
     files = os.listdir(directory)
@@ -115,9 +115,8 @@ words = ["MUESTRA", "IMAGEN", "THECAKEISALIE"]
 remove_files_with_words(directory, words)
 directory = dest_dir
 remove_duplicate_files(directory)
-
-fil2 = pd.read_excel('_1a1BMG_.xlsx', usecols=[1])
-names = fil2.values.flatten().tolist()
+fil1 = pd.read_excel('_1a1BMG_.xlsx', usecols=[1])
+names = fil1.values.flatten().tolist()
 dir_path = dest_dir
 files = os.listdir(dir_path)
 wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
@@ -133,7 +132,7 @@ for i, name in enumerate(names):
         print(f'{name} not found in directory')
         ws.cell(row=i+2, column=2).fill = red_fill
 wb.save('_1a1BMG_.xlsx')
-####
+###
 os.makedirs(os.path.join(dest_dir, "CONTENIDOS"))
 os.makedirs(os.path.join(dest_dir, "MONTAJES"))
 os.makedirs(os.path.join(dest_dir, "TAPAS"))
