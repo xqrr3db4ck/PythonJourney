@@ -78,4 +78,16 @@ for i, name in enumerate(names):
         print(f'{name} not found in directory')
         ws.cell(row=i+2, column=2).fill = red_fill
 wb.save('_1a1BMG_.xlsx')
+###
+###
+df['columna_4'] = pd.to_numeric(df['columna_4'], errors='coerce')
+df['columna_5'] = pd.to_numeric(df['columna_5'], errors='coerce')
+df['columna_6'] = df['columna_6'].str.replace('x', '')
+df['columna_6'] = pd.to_numeric(df['columna_6'], errors='coerce')
+def operacion(row):
+    if row['columna_6'] <= 170240:
+        return row['columna_4'] * row['columna_5'] / 16
+    else:
+        return row['columna_4'] * row['columna_5'] / 32
 
+df['resultado'] = df.apply(operacion, axis=1)
