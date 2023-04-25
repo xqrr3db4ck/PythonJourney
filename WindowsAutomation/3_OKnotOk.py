@@ -61,7 +61,6 @@ for col in ws.columns:
     adjusted_width = (max_length + 2) * 1.1
     ws.column_dimensions[column].width = adjusted_width
 wb.save('_1a1BMG_.xlsx')
-###
 fil1 = pd.read_excel('_1a1BMG_.xlsx', usecols=[1])
 names = fil1.values.flatten().tolist()
 dir_path = "./"
