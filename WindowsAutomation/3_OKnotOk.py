@@ -90,4 +90,7 @@ def operacion(row):
         return row['CANT'] * row['PAG'] / 16
     else:
         return row['CANT'] * row['PAG'] / 32
-df['resultado'] = df.apply(operacion, axis=1)
+df['result'] = df.apply(operation, axis=1)
+for index, row in df.iterrows():
+            result = operation(row)
+            print(f"The result for now {index} is {result}")
