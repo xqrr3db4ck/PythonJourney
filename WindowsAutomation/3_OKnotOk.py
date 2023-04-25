@@ -80,17 +80,14 @@ for i, name in enumerate(names):
 wb.save('_1a1BMG_.xlsx')
 ###
 ###
-df = pd.read_excel('_1a1BMG_.xlsx')
-df['CANT'] = pd.to_numeric(df['CANT'], errors='coerce')
-df['PAG'] = pd.to_numeric(df['PAG'], errors='coerce')
-df['ANCHOALTO'] = df['ANCHOALTO'].str.replace('x', '')
-df['ANCHOALTO'] = pd.to_numeric(df['ANCHOALTO'], errors='coerce')
-def operation(row):
-    if row['ANCHOALTO'] <= 170240:
-        return row['CANT'] * row['PAG'] / 16
-    else:
-        return row['CANT'] * row['PAG'] / 32
-df['result'] = df.apply(operation, axis=1)
-for index, row in df.iterrows():
-            result = operation(row)
-            print(f"The result for now {index} is {result}")
+df = pd.read_excel("_1a1BMG_.xlsx")
+wb = load_workbook(filename='_1a1BMG_.xlsx')
+ws = wb.active
+ws.cell(row=ws.max_row+2, column=ws.max_column+3).value = "PAPELES"
+ws.cell(row=ws.max_row+2, column=ws.max_column+4).value = "CANTIDAD"
+ws.cell(row=ws.max_row+2, column=ws.max_column+5).value = "PLIEGO"
+blueFill = PatternFill(start_color='0000FF', end_color='0000FF', fill_type='solid')
+ws.cell(row=ws.max_row+2, column=ws.max_column+3).fill = blueFill
+ws.cell(row=ws.max_row+2, column=ws.max_column+4).fill = blueFill
+ws.cell(row=ws.max_row+2, column=ws.max_column+5).fill = blueFill
+wb.save('_1a1BMG_.xlsx')
