@@ -85,7 +85,7 @@ df['CANT'] = pd.to_numeric(df['CANT'], errors='coerce')
 df['PAG'] = pd.to_numeric(df['PAG'], errors='coerce')
 df['ANCHOALTO'] = df['ANCHOALTO'].str.replace('x', '')
 df['ANCHOALTO'] = pd.to_numeric(df['ANCHOALTO'], errors='coerce')
-def operacion(row):
+def operation(row):
     if row['ANCHOALTO'] <= 170240:
         return row['CANT'] * row['PAG'] / 16
     else:
