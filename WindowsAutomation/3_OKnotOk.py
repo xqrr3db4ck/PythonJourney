@@ -61,18 +61,6 @@ for col in ws.columns:
     adjusted_width = (max_length + 2) * 1.1
     ws.column_dimensions[column].width = adjusted_width
 wb.save('_1a1BMG_.xlsx')
-def dividir(val, div):
-    if val % div == 0:
-        return val / div
-    else:
-        return (val * 2) / div
-df = pd.read_excel('_1a1BMG_.xlsx')
-df['ANCHOALTO'] = pd.to_numeric(df['ANCHOALTO'], errors='coerce')
-df['CANT'] = df['CANT'].astype(int)
-df['PAG'] = df['PAG'].astype(int)
-df['suma'] = df['CANT'] + df['PAG']
-df['result'] = df.apply(lambda row: dividir(row['suma'], 16) if row['ANCHOALTO'] <= 170240 else dividir(row['CANT'] * row['PAG'], 32), axis=1)
-print(df[['CANT', 'result']])
 ###
 fil1 = pd.read_excel('_1a1BMG_.xlsx', usecols=[1])
 names = fil1.values.flatten().tolist()
