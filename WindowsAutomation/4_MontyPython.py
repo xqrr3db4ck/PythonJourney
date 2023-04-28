@@ -1,3 +1,4 @@
+###MusicIsMath
 from PyPDF2 import PdfFileWriter, PdfFileReader
 
 input_pdf = PdfFileReader(open("input.pdf", "rb"))
