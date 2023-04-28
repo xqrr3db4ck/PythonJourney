@@ -96,6 +96,8 @@ for index, row in df.iterrows():
 b70 = sum(results['B70'])
 b90 = sum(results['B90'])
 hol = sum(results['HOL.'])
-df.iloc[-1, 3] = sum(results['B70'])
-df.iloc[-1, 4] = sum(results['B90'])
-df.iloc[-1, 5] = sum(results['HOL.'])
+df.loc[df.index[-1] + 1] = ['' for _ in range(len(df.columns))]
+df.iloc[-1, 1] = sum(results['B70'])
+df.iloc[-1, 2] = sum(results['B90'])
+df.iloc[-1, 3] = sum(results['HOL.'])
+df.to_excel('_1a1BMG_.xlsx', index=False)
