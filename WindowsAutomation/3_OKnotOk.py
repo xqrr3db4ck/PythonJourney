@@ -84,6 +84,7 @@ wb.save('_1a1BMG_.xlsx')
 ###
 df = pd.read_excel('_1a1BMG_.xlsx')
 df['result'] = df.apply(lambda row: row['CANT'] * row['PAG'] / 32 if row['ANCHOALTO'].replace('x', '') <= '170240' else row['CANT'] * row['PAG'] / 16, axis=1)
+df['result'] = df['result'].apply(np.ceil).astype(int)
 B70 = df.loc[df['CONT'] == 'B70', 'result']
 B90 = df.loc[df['CONT'] == 'B90', 'result']
 HOL = df.loc[df['CONT'] == 'HOL.', 'result']
