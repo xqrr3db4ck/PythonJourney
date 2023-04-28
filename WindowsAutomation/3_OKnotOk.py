@@ -93,7 +93,9 @@ for index, row in df.iterrows():
         results['B90'].append(row['CANT'] * row['PAG'] / 32 if row['ANCHOALTO'] < 170240 else row['CANT'] * row['PAG'] / 16)
     elif row['CONT'] == 'HOL.':
         results['HOL.'].append(row['CANT'] * row['PAG'] / 32 if row['ANCHOALTO'] < 170240 else row['CANT'] * row['PAG'] / 16)
-df.loc[df.index[-1] + 1] = ['' for _ in range(len(df.columns))]
+b70 = sum(results['B70'])
+b90 = sum(results['B90'])
+hol = sum(results['HOL.'])
 df.iloc[-1, 3] = sum(results['B70'])
 df.iloc[-1, 4] = sum(results['B90'])
-df.iloc[-1, 5] = sum(results['HOL'])
+df.iloc[-1, 5] = sum(results['HOL.'])
