@@ -81,3 +81,19 @@ for i, name in enumerate(names):
 wb.save('_1a1BMG_.xlsx')
 ###
 ###
+###
+df = pd.read_excel('_1a1BMG_.xlsx')
+df['ANCHOALTO'] = df['ANCHOALTO'].str.replace('x', '').astype(int)
+df['result'] = df.apply(lambda row: row['CANT'] * row['PAG'] / 16 if int(row['ANCHOALTO']) <= 170240 else row['CANT'] * row['PAG'] / 32, axis=1)
+results = {'B70': [], 'B90': [], 'HOL': [], 'ESM115': []}
+for index, row in df.iterrows():
+    if row['CONT'] == 'B70':
+        results['B70'].append(row['CANT'] * row['PAG'] / 32 if row['ANCHOALTO'] < 170240 else row['CANT'] * row['PAG'] / 16)
+    elif row['CONT'] == 'B90':
+        results['B90'].append(row['CANT'] * row['PAG'] / 32 if row['ANCHOALTO'] < 170240 else row['CANT'] * row['PAG'] / 16)
+    elif row['CONT'] == 'HOL':
+        results['HOL'].append(row['CANT'] * row['PAG'] / 32 if row['ANCHOALTO'] < 170240 else row['CANT'] * row['PAG'] / 16)
+df.loc[df.index[-1] + 1] = ['' for _ in range(len(df.columns))]
+df.iloc[-1, 3] = sum(results['B70'])
+df.iloc[-1, 4] = sum(results['B90'])
+df.iloc[-1, 5] = sum(results['HOL'])
