@@ -3,9 +3,11 @@ import pandas as pd
 import openpyxl
 from openpyxl.styles import PatternFill
 from openpyxl import load_workbook
+import math
+import numpy as np
 import os
 
-df = pd.read_excel('IgetBored.xlsx')
+df = pd.read_excel('pedidos.xlsx')
 df.drop(df.columns[[1, 2, 3, 4, 8, 17, 18, 19]], axis=1, inplace=True)
 df.iloc[:, 0] = df.iloc[:, 0].str[5:]
 df.iloc[:, 1] = df.iloc[:, 1].str[5:]
@@ -23,6 +25,13 @@ df['PWSH'] = df['PWSH'].str.lstrip('0') + '*,'
 new_file_name = "_1a1BMG_.xlsx"
 df.to_excel(new_file_name, index=False)
 print(f"File saved as {new_file_name}")
+df = pd.read_excel('_1a1BMG_.xlsx')
+df['result'] = df.apply(lambda row: row['CANT'] * row['PAG'] / 32 if row['ANCHOALTO'].replace('x', '') <= '170240' else row['CANT'] * row['PAG'] / 16, axis=1)
+df['result'] = df['result'].apply(np.ceil).astype(int)
+B70 = df.loc[df['CONT'] == 'B70', 'PLIE.']
+B90 = df.loc[df['CONT'] == 'B90', 'result']
+HOL = df.loc[df['CONT'] == 'HOL.', 'result']
+df.to_excel('_1a1BMG_.xlsx', index=False)
 wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
 ws = wb.active
 fill = PatternFill(start_color='5DADE2', end_color='5DADE2', fill_type='solid')
@@ -78,14 +87,3 @@ for i, name in enumerate(names):
     if not found:
         print(f'{name} not found in directory')
         ws.cell(row=i+2, column=2).fill = red_fill
-wb.save('_1a1BMG_.xlsx')
-###
-###
-###
-df = pd.read_excel('_1a1BMG_.xlsx')
-df['result'] = df.apply(lambda row: row['CANT'] * row['PAG'] / 32 if row['ANCHOALTO'].replace('x', '') <= '170240' else row['CANT'] * row['PAG'] / 16, axis=1)
-df['result'] = df['result'].apply(np.ceil).astype(int)
-B70 = df.loc[df['CONT'] == 'B70', 'result']
-B90 = df.loc[df['CONT'] == 'B90', 'result']
-HOL = df.loc[df['CONT'] == 'HOL.', 'result']
-df.to_excel('_1a1BMG_.xlsx', index=False)
