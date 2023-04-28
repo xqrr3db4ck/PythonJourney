@@ -84,7 +84,7 @@ wb.save('_1a1BMG_.xlsx')
 ###
 df = pd.read_excel('_1a1BMG_.xlsx')
 df['ANCHOALTO'] = df['ANCHOALTO'].str.replace('x', '').astype(int)
-df['result'] = df.apply(lambda row: row['CANT'] * row['PAG'] / 16 if int(row['ANCHOALTO']) <= 170240 else row['CANT'] * row['PAG'] / 32, axis=1)
+df['result'] = df.apply(lambda row: math.ceil(int(row['CANT']) * int(row['PAG']) / 16) if int(row['ANCHOALTO']) <= 170240 else math.ceil(int(row['CANT']) * int(row['PAG']) / 32), axis=1)
 results = {'B70': [], 'B90': [], 'HOL.': []}
 for index, row in df.iterrows():
     if row['CONT'] == 'B70':
@@ -97,7 +97,7 @@ b70 = sum(results['B70'])
 b90 = sum(results['B90'])
 hol = sum(results['HOL.'])
 df.loc[df.index[-1] + 1] = ['' for _ in range(len(df.columns))]
-df.iloc[-1, 1] = sum(results['B70'])
-df.iloc[-1, 2] = sum(results['B90'])
-df.iloc[-1, 3] = sum(results['HOL.'])
+df.iloc[-1, 1] = math.ceil(sum(results['B70']))
+df.iloc[-1, 2] = math.ceil(sum(results['B90']))
+df.iloc[-1, 3] = math.ceil(sum(results['HOL.']))
 df.to_excel('_1a1BMG_.xlsx', index=False)
