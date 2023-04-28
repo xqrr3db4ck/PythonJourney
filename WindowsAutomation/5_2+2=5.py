@@ -1,3 +1,4 @@
+#BewareoftheFriendlyStranger
 import os
 import PyPDF2
 
