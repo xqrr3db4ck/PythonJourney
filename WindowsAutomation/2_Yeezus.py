@@ -38,7 +38,7 @@ directory = dest_dir
 remove_duplicate_files(directory)
 fil1 = pd.read_excel('_1a1BMG_.xlsx', usecols=[1])
 names = fil1.values.flatten().tolist()
-dir_path = dest_dir
+dir_path = "./"
 files = os.listdir(dir_path)
 wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
 ws = wb.active
