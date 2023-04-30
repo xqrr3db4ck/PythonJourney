@@ -2,6 +2,7 @@ import pandas as pd
 import openpyxl
 from openpyxl.styles import PatternFill
 from openpyxl import load_workbook
+import numpy as np
 import os
 
 df = pd.read_excel('IgetBored.xlsx')
