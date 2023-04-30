@@ -93,7 +93,7 @@ for subdir in subdirs:
                             shutil.copy(source_file, dest_file)
                         else:
                             print(f"{filename} already exists in {dest_dir}, skipping...")
-shutil.copyfile('_1a1BMG_.xlsx', dest_dir)                  
+shutil.copyfile('_1a1BMG_.xlsx', dest_dir + '_1a1BMG_.xlsx')                  
 os.chdir(dest_dir)
 def remove_files_with_words(directory, words):
     files = os.listdir(directory)
