@@ -3,6 +3,7 @@ import openpyxl
 from openpyxl.styles import PatternFill
 from openpyxl import load_workbook
 import numpy as np
+import shutil
 import os
 
 df = pd.read_excel('IgetBored.xlsx')
@@ -92,7 +93,7 @@ for subdir in subdirs:
                             shutil.copy(source_file, dest_file)
                         else:
                             print(f"{filename} already exists in {dest_dir}, skipping...")
-                        
+shutil.copyfile('_1a1BMG_.xlsx', dest_dir)                  
 os.chdir(dest_dir)
 def remove_files_with_words(directory, words):
     files = os.listdir(directory)
