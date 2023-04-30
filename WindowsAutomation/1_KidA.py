@@ -6,7 +6,7 @@ import numpy as np
 import shutil
 import os
 
-df = pd.read_excel('IgetBored.xlsx')
+df = pd.read_excel('pedidos.xlsx')
 df.drop(df.columns[[1, 2, 3, 4, 8, 17, 18, 19]], axis=1, inplace=True)
 df.iloc[:, 0] = df.iloc[:, 0].str[5:]
 df.iloc[:, 1] = df.iloc[:, 1].str[5:]
