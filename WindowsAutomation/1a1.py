@@ -1,8 +1,7 @@
- import pandas as pd
+import pandas as pd
 import openpyxl
-from openpyxl.styles import PatternFill, Alignment
-from openpyxl import load_workbook
-import numpy as np
+from openpyxl.styles import PatternFill
+from math import ceil
 import os
 
 df = pd.read_excel('1a1.xlsx')
@@ -15,8 +14,8 @@ df['TITULO'] = df['TITULO'].str.slice(stop=30)
 df['TITULO'] = df['TITULO'].astype(str) + '  -'
 df['EDIT'] = df['EDIT'].str.slice(stop=-3)
 df['EDIT'] = df['EDIT'].str.lstrip('0')
-df.replace({'BNAHU080': 'HOL.', 'BNOBR080': 'B70', 'COOBR090': 'B90', 'BNOBR090': 'B90', 'BNILM115': 'E115',
-            'COAHU080': 'HOL.', 'TAILU270': 'ESM300', 'ENCBIN': 'RÚST.', 'ENCACA': 'CABA.', 'LAMMAT': 'MAT',
+df.replace({'BNAHU080': 'HOL', 'BNOBR080': 'B70', 'COOBR090': 'B90', 'BNOBR090': 'B90', 'BNILM115': 'E115',
+            'COAHU080': 'HOL', 'TAILU270': 'ESM300', 'ENCBIN': 'RÚST.', 'ENCACA': 'CABA.', 'LAMMAT': 'MAT',
             'LAMBTE': 'BTE'}, regex=True, inplace=True)
 df['EDIT'] = df.pop('EDIT')
 df['PWSH'] = df['COD_PUB']
@@ -79,20 +78,17 @@ for row in ws.iter_rows():
         if cell.value in ["CONT.", "CANT.", "PLIEGO", "CORTE"]:
             cell.fill = PatternFill(start_color='AEB6BF', end_color='AEB6BF', fill_type='solid')
 wb.save('_1a1_.xlsx')
-
-'''
+###
+import math
 wb = openpyxl.load_workbook('_1a1_.xlsx')
 ws = wb.active
 B70X = 0.0
-HOLX = 0.0
-B90X = 0.0
 B70 = 0.0
-HOL = 0.0
+B90X = 0.0
 B90 = 0.0
-k = 0
-while ws.cell(row=1 + k, column=1).value is not None:
-    k += 1
-for i in range(1, k + 1):
+HOLX = 0.0
+HOL = 0.0
+for i in range(1, ws.max_row + 1):
     if ws.cell(row=i, column=8).value == "B70" and ws.cell(row=i, column=6).value >= "170x240":
         B70X += ws.cell(row=i, column=5).value * ws.cell(row=i, column=4).value
     elif ws.cell(row=i, column=8).value == "HOL" and ws.cell(row=i, column=6).value >= "170x240":
@@ -105,15 +101,17 @@ for i in range(1, k + 1):
         HOL += ws.cell(row=i, column=5).value * ws.cell(row=i, column=4).value
     elif ws.cell(row=i, column=8).value == "B90" and ws.cell(row=i, column=6).value < "170x240":
         B90 += ws.cell(row=i, column=5).value * ws.cell(row=i, column=4).value
-B70X = ceil(B70 / 16)
-HOLX = ceil(HOL / 16)
-B90X = ceil(B90 / 16)
-B70 = ceil(B70 / 32)
-HOL = ceil(HOL / 32)
-B90 = ceil(B90 / 32)
+B70X = math.ceil(B70X / 16)
+HOLX = math.ceil(HOLX / 16)
+B90X = math.ceil(B90X / 16)
+B70 = math.ceil(B70 / 32)
+HOL = math.ceil(HOL / 32)
+B90 = math.ceil(B90 / 32)
 print(B70X)
 print(B70)
 print(B90X)
 print(B90)
 print(HOLX)
-print(HOL)'''
+print(HOL)
+wb.save('_1a1_.xlsx')
+###
