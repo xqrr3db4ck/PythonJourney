@@ -33,7 +33,7 @@ for cell in ws[1]:
     elif value == 'LAMINADO':
         cell.value = 'LAM.'
     elif value == 'PAG_TOTALES':
-        cell.value = 'PAGS'
+        cell.value = 'PAG'
     elif value == 'PAPEL_TAPA':
         cell.value = 'TAPA'
     elif value == 'PAPEL_BN':
