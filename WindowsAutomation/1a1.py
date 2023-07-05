@@ -70,10 +70,10 @@ dir_path = "./"
 files = os.listdir(dir_path)
 ###
 ws.append([])
-ws.cell(row=ws.max_row + 2, column=1, value="CONT. BN")
+ws.cell(row=ws.max_row + 2, column=1, value="CONT.")
 ws.cell(row=ws.max_row, column=2, value="CANT.")
-ws.cell(row=ws.max_row, column=3, value="CONT. CL")
-ws.cell(row=ws.max_row, column=4, value="CANT.")
+ws.cell(row=ws.max_row, column=3, value="PLIEGO")
+ws.cell(row=ws.max_row, column=4, value="CORTE")
 for row in ws.iter_rows():
     for cell in row:
         if cell.value in ["CONT.", "CANT.", "PLIEGO", "CORTE"]:
