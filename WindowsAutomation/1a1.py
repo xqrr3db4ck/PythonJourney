@@ -76,7 +76,7 @@ ws.cell(row=ws.max_row, column=3, value="CONT. CL")
 ws.cell(row=ws.max_row, column=4, value="CANT.")
 for row in ws.iter_rows():
     for cell in row:
-        if cell.value in ["CONT. BN", "CANT.", "CONT. CL"]:
+        if cell.value in ["CONT.", "CANT.", "PLIEGO", "CORTE"]:
             cell.fill = PatternFill(start_color='AEB6BF', end_color='AEB6BF', fill_type='solid')
 wb.save('_1a1_.xlsx')
 
