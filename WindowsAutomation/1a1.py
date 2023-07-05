@@ -68,17 +68,14 @@ fil1 = pd.read_excel('_1a1_.xlsx', usecols=[1])
 names = fil1.values.flatten().tolist()
 dir_path = "./"
 files = os.listdir(dir_path)
+###
+ws.append([])
+ws.cell(row=ws.max_row + 2, column=1, value="CONT. BN")
+ws.cell(row=ws.max_row, column=2, value="CANT.")
+ws.cell(row=ws.max_row, column=3, value="CONT. CL")
+ws.cell(row=ws.max_row, column=4, value="CANT.")
+for row in ws.iter_rows():
+    for cell in row:
+        if cell.value in ["CONT. BN", "CANT.", "CONT. CL"]:
+            cell.fill = PatternFill(start_color='AEB6BF', end_color='AEB6BF', fill_type='solid')
 wb.save('_1a1_.xlsx')
-
-'''wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
-ws = wb.active
-red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
-for i, name in enumerate(names):
-    found = False
-    for file in files:
-        if name in file and file.startswith(name.split('_')[0]):
-            found = True
-            break
-    if not found:
-        print(f'{name} not found in directory')
-        ws.cell(row=i+2, column=2).fill = red_fill'''
