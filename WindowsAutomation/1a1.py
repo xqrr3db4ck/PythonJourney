@@ -23,7 +23,6 @@ df['PWSH'] = df['PWSH'].str.lstrip('0') + '*,'
 new_file_name = "_1a1_.xlsx"
 df.to_excel(new_file_name, index=False)
 print(f"File saved as {new_file_name}")
-###
 wb = openpyxl.load_workbook('_1a1_.xlsx')
 ws = wb.active
 fill = PatternFill(start_color='5DADE2', end_color='5DADE2', fill_type='solid')
@@ -78,7 +77,6 @@ for row in ws.iter_rows():
         if cell.value in ["CONT.", "CANT.", "PLIEGO", "CORTE"]:
             cell.fill = PatternFill(start_color='AEB6BF', end_color='AEB6BF', fill_type='solid')
 wb.save('_1a1_.xlsx')
-###
 import math
 wb = openpyxl.load_workbook('_1a1_.xlsx')
 ws = wb.active
@@ -107,11 +105,29 @@ B90X = math.ceil(B90X / 16)
 B70 = math.ceil(B70 / 32)
 HOL = math.ceil(HOL / 32)
 B90 = math.ceil(B90 / 32)
-print(B70X)
-print(B70)
-print(B90X)
-print(B90)
-print(HOLX)
-print(HOL)
+max_row = ws.max_row
+ws.cell(row=max_row + 1, column=1, value="B70")
+ws.cell(row=max_row + 2, column=1, value="B70")
+ws.cell(row=max_row + 3, column=1, value="B90")
+ws.cell(row=max_row + 4, column=1, value="B90")
+ws.cell(row=max_row + 5, column=1, value="HOL")
+ws.cell(row=max_row + 6, column=1, value="HOL")
+ws.cell(row=max_row + 1, column=2, value=B70X)
+ws.cell(row=max_row + 2, column=2, value=B70)
+ws.cell(row=max_row + 3, column=2, value=B90X)
+ws.cell(row=max_row + 4, column=2, value=B90)
+ws.cell(row=max_row + 5, column=2, value=HOLX)
+ws.cell(row=max_row + 6, column=2, value=HOL)
+ws.cell(row=max_row + 1, column=3, value="70X50")
+ws.cell(row=max_row + 2, column=3, value="70X50")
+ws.cell(row=max_row + 3, column=3, value="70X50")
+ws.cell(row=max_row + 4, column=3, value="70X50")
+ws.cell(row=max_row + 5, column=3, value="70X50")
+ws.cell(row=max_row + 6, column=3, value="70X50")
+ws.cell(row=max_row + 1, column=4, value="35X50")
+ws.cell(row=max_row + 2, column=4, value="25X35")
+ws.cell(row=max_row + 3, column=4, value="35X50")
+ws.cell(row=max_row + 4, column=4, value="25X35")
+ws.cell(row=max_row + 5, column=4, value="35X50")
+ws.cell(row=max_row + 6, column=4, value="25X35")
 wb.save('_1a1_.xlsx')
-###
