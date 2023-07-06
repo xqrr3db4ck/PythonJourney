@@ -37,7 +37,7 @@ fil1 = pd.read_excel('_1a1BMG_.xlsx', usecols=[1])
 names = fil1.values.flatten().tolist()
 dir_path = "./"
 files = os.listdir(dir_path)
-wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
+wb = openpyxl.load_workbook('_1a1_.xlsx')
 ws = wb.active
 red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
 for i, name in enumerate(names):
