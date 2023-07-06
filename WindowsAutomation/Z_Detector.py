@@ -30,10 +30,8 @@ def remove_duplicate_files(directory):
                 files.sort()
                 for file in files[:-1]:
                     os.remove(os.path.join(directory, file))
-directory = dest_dir
 words = ["MUESTRA", "IMAGEN", "THECAKEISALIE"]
 remove_files_with_words(directory, words)
-directory = dest_dir
 remove_duplicate_files(directory)
 fil1 = pd.read_excel('_1a1BMG_.xlsx', usecols=[1])
 names = fil1.values.flatten().tolist()
