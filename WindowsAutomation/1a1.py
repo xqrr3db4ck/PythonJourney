@@ -16,7 +16,7 @@ df['EDIT'] = df['EDIT'].str.slice(stop=-3)
 df['EDIT'] = df['EDIT'].str.lstrip('0')
 df.replace({'BNAHU080': 'HOL', 'BNOBR080': 'B70', 'COOBR090': 'B90', 'BNOBR090': 'B90', 'BNILM115': 'E115',
             'COAHU080': 'HOL', 'TAILU270': 'ESM300', 'ENCBIN': 'RÚST.', 'ENCACA': 'CABA.', 'LAMMAT': 'MAT',
-            'LAMBTE': 'BTE'}, regex=True, inplace=True)
+            'LAMBTE': 'BTE', 'COILM090': 'MAT90'}, regex=True, inplace=True)
 df['EDIT'] = df.pop('EDIT')
 df['PWSH'] = df['COD_PUB']
 df['PWSH'] = df['PWSH'].str.lstrip('0') + '*,'
