@@ -1,8 +1,7 @@
 import pandas as pd
 import openpyxl
-from openpyxl.styles import PatternFill, Alignment
-from openpyxl import load_workbook
-import numpy as np
+from openpyxl.styles import PatternFill
+from math import ceil
 import os
 
 df = pd.read_excel('bmg.xlsx')
@@ -17,7 +16,7 @@ df['TITULO'] = df['TITULO'].str.slice(stop=30)
 df['TITULO'] = df['TITULO'].astype(str) + '  -'
 df.replace({'BNAHU080': 'HOL.', 'BNOBR080': 'B70', 'COOBR090': 'B90', 'BNOBR090': 'B90', 'BNILM115': 'E115',
             'COAHU080': 'HOL.', 'TAILU270': 'ESM300', 'ENCBIN': 'RÚST.', 'ENCACA': 'CABA.', 'LAMMAT': 'MAT',
-            'LAMBTE': 'BTE'}, regex=True, inplace=True)
+            'LAMBTE': 'BTE', 'COILM090': 'MAT90'}, regex=True, inplace=True)
 df['PWSH'] = df['COD_PUB']
 df['PWSH'] = df['PWSH'].str.lstrip('0') + '*,'
 new_file_name = "_bmg_.xlsx"
@@ -87,17 +86,14 @@ fil1 = pd.read_excel('_bmg_.xlsx', usecols=[1])
 names = fil1.values.flatten().tolist()
 dir_path = "./"
 files = os.listdir(dir_path)
+#####
+ws.append([])
+ws.cell(row=ws.max_row + 2, column=1, value="CONT.")
+ws.cell(row=ws.max_row, column=2, value="CANT.")
+ws.cell(row=ws.max_row, column=3, value="PLIEGO")
+ws.cell(row=ws.max_row, column=4, value="CORTE")
+for row in ws.iter_rows():
+    for cell in row:
+        if cell.value in ["CONT.", "CANT.", "PLIEGO", "CORTE"]:
+            cell.fill = PatternFill(start_color='AEB6BF', end_color='AEB6BF', fill_type='solid')
 wb.save('_bmg_.xlsx')
-
-'''wb = openpyxl.load_workbook('_1a1BMG_.xlsx')
-ws = wb.active
-red_fill = PatternFill(start_color='FFFF0000', end_color='FFFF0000', fill_type='solid')
-for i, name in enumerate(names):
-    found = False
-    for file in files:
-        if name in file and file.startswith(name.split('_')[0]):
-            found = True
-            break
-    if not found:
-        print(f'{name} not found in directory')
-        ws.cell(row=i+2, column=2).fill = red_fill'''
