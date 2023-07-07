@@ -2,10 +2,7 @@ import pandas as pd
 import numpy as np
 import openpyxl
 from openpyxl.styles import PatternFill
-from math import ceil
 import os
-from datetime import datetime, timedelta
-
 
 df = pd.read_excel('1a1.xlsx')
 df.drop(df.columns[[2, 3, 4, 8, 17, 18, 19]], axis=1, inplace=True)
@@ -22,18 +19,27 @@ df['EDIT'] = df.pop('EDIT')
 df['PWSH'] = df['COD_PUB']
 df['PWSH'] = df['PWSH'].str.lstrip('0') + '*,'
 df['FECHA_PED'] = df.pop('FECHA_PED')
-df['FECHA_PED'] = df['FECHA_PED'].str.slice(stop=-6)
-###
-col_fecha = 13
-df.iloc[:, col_fecha] = pd.to_numeric(df.iloc[:, col_fecha], errors='coerce')
-df.iloc[:, col_fecha] = np.where(pd.notnull(df.iloc[:, col_fecha]), df.iloc[:, col_fecha] + 4, df.iloc[:, col_fecha])
-###
+df['FECHA_PED'] = df['FECHA_PED'].str.slice(stop=-14)
+col_date = 13
+df.iloc[:, col_date] = pd.to_numeric(df.iloc[:, col_date], errors='coerce')
+df.iloc[:, col_date] = np.where(pd.notnull(df.iloc[:, col_date]), df.iloc[:, col_date] + 4, df.iloc[:, col_date])
 df.replace({'BNAHU080': 'HOL', 'BNOBR080': 'B70', 'COOBR090': 'B90', 'BNOBR090': 'B90', 'BNILM115': 'E115',
             'COAHU080': 'HOL', 'TAILU270': 'ESM300', 'ENCBIN': 'RÚST.', 'ENCACA': 'CABA.', 'LAMMAT': 'MAT',
             'LAMBTE': 'BTE', 'COILM090': 'MAT90'}, regex=True, inplace=True)
 new_file_name = "_1a1_.xlsx"
 df.to_excel(new_file_name, index=False)
 print(f"File saved as {new_file_name}")
+###
+wb = openpyxl.load_workbook('_1a1_.xlsx')
+ws = wb.active
+for cell in ws[1]:
+    value = str(cell.value)
+    if value == 'COD_PUB':
+        cell.value = 'MET.'
+    elif value == 'FECHA_PED':
+        cell.value = 'FECHA'
+    wb.save('_1a1_.xlsx')
+###
 wb = openpyxl.load_workbook('_1a1_.xlsx')
 ws = wb.active
 fill = PatternFill(start_color='5DADE2', end_color='5DADE2', fill_type='solid')
@@ -141,6 +147,4 @@ ws.cell(row=max_row + 3, column=4, value="35X50")
 ws.cell(row=max_row + 4, column=4, value="25X35")
 ws.cell(row=max_row + 5, column=4, value="35X50")
 ws.cell(row=max_row + 6, column=4, value="25X35")
-###
-###
 wb.save('_1a1_.xlsx')
