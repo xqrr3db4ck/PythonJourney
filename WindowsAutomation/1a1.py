@@ -18,8 +18,8 @@ df['EDIT'] = df['EDIT'].str.lstrip('0')
 df['EDIT'] = df.pop('EDIT')
 df['PWSH'] = df['COD_PUB']
 df['PWSH'] = df['PWSH'].str.lstrip('0') + '*,'
-df['FECHA_PED'] = df['FECHA_PED'].str.slice(stop=2) ###N
 df['FECHA_PED'] = df.pop('FECHA_PED')
+df['FECHA_PED'] = df['FECHA_PED'].str.slice(stop=-6)
 df.replace({'BNAHU080': 'HOL', 'BNOBR080': 'B70', 'COOBR090': 'B90', 'BNOBR090': 'B90', 'BNILM115': 'E115',
             'COAHU080': 'HOL', 'TAILU270': 'ESM300', 'ENCBIN': 'RÚST.', 'ENCACA': 'CABA.', 'LAMMAT': 'MAT',
             'LAMBTE': 'BTE', 'COILM090': 'MAT90'}, regex=True, inplace=True)
